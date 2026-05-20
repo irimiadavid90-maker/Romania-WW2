@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontul de Est</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="title-container">
+            <img src="armenoi.png" class="arma-stanga" alt="">
+            <h1>România în Al Doilea Razboi Mondial</h1>
+            <img src="armenoi.png" class="arma-dreapta" alt="">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="base.html"><i class="fa-solid fa-house"></i></a></li>
+                <li><a href="pierderi.html">Pierderi teritoriale</a></li>
+                <li><a href="antonescu.html">Ion Antonescu</a></li>
+                <li><a href="frontul-est.html" class="active">Frontul de Est</a></li>
+                <li><a href="mihai.html">Regele Mihai I</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+
+                <li class="language-selector">
+                    <button class="lang-btn" id="lang-btn">
+                        <img src="steag_ro.png" alt="RO" class="flag-icon"> RO <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <ul class="lang-dropdown" id="lang-dropdown">
+                        <li><a href="frontul-est_en.html"><img src="steag_en.png" alt="EN" class="flag-icon"> English</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="frontul-de-est">
+            <h2>De la Prut la Stalingrad</h2>
+
+            <div class="content-wrapper">
+                <div class="main-text">
+                    <p class="reveal-on-scroll">Participarea României pe Frontul de Est a reprezentat cel mai amplu efort militar din istoria țării. Dincolo de cifrele reci ale statisticilor, acest război a fost trăit de sute de mii de soldați, majoritatea tineri țărani, ca un periplu dureros între speranța reîntregirii naționale și agonia supraviețuirii în stepele nesfârșite ale Răsăritului.</p>
+
+                    <h3>Eliberarea Basarabiei și a Nordului Bucovinei</h3>
+                    <p class="reveal-on-scroll">Totul a început sub semnul reparației morale. Între <strong>22 iunie și 26 iulie 1941</strong>, trupele române au reușit să recupereze provinciile pierdute cu un an înainte în doar 33 de zile de lupte intense, soldații fiind motivați să își salveze frații de pe cealaltă parte a râului.</p>
+
+                    <h3>Bătălia pentru Odessa</h3>
+                    <p class="reveal-on-scroll">După atingerea vechii granițe pe Nistru, războiul a căpătat o altă dimensiune. Cea mai grea încercare a anului 1941 a fost <strong>asediul Odessei</strong>, o bătălie purtată aproape exclusiv de armata română. Deși victoria a fost obținută în octombrie, prețul a fost unul sângeros: peste 90.000 de oameni au fost pierduți (morți, răniți sau dispăruți). Ulterior, diviziile române au fost trimise tot mai departe de casă, luptând în Crimeea, la Sevastopol și înaintând până în Munții Caucaz.</p>
+
+                    <h3>Tragediile</h3>
+                    <p class="reveal-on-scroll">Iarna anului 1942 a marcat cel mai negru capitol al istoriei noastre militare. Dislocate pe un front mult prea larg la <strong>Cotul Donului</strong> și în Stepa Calmucă, trupele române au fost lovite de contraofensiva masivă a Uniunii Sovietice.</p>
+                    <p class="reveal-on-scroll">Fără armament antitanc modern și echipați precar pentru gerul de -30°C, soldații români au fost decimați. Imaginile de atunci descriu o realitate crudă, cu oameni luptând în zăpadă până la epuizarea totală. Bilanțul a fost catastrofal: aproximativ <strong>150.000 de soldați</strong> au pierit sau au fost luați prizonieri, mulți sfârșind în lagărele din Siberia.</p>
+
+                    <h3>Retragerea</h3>
+                    <p class="reveal-on-scroll">Înfrângerea de la Stalingrad a schimbat definitiv cursul evenimentelor. Din acel moment, armata română s-a aflat într-o retragere continuă și epuizantă. În primăvara anului 1944, frontul a ajuns din nou pe pământ românesc, în Moldova, transformând țara în teatru de operațiuni. Această situație disperată a forțat actul de la <strong>23 august 1944</strong>, când România a părăsit Axa, punând capăt unei campanii în est care lăsase în urmă sute de mii de familii îndoliate.</p>
+                </div>
+
+                <aside class="timeline-box">
+    <h4 class="timeline-title"><i class="fa-solid fa-clock-rotate-left"></i> REPERE CRONOLOGICE</h4>
+
+    <div class="vertical-timeline-container">
+        <div class="v-timeline-track">
+            <div class="v-timeline-bar" id="v-timeline-bar"></div>
+        </div>
+
+        <div class="v-timeline-item active" onclick="afiseazaEtapa(0, this)">
+            <div class="v-node">1</div>
+            <div class="v-meta">
+                <span class="v-date">22 Iun 1941</span>
+                <span class="v-title">Ordinul de atac</span>
+            </div>
+        </div>
+
+        <div class="v-timeline-item" onclick="afiseazaEtapa(1, this)">
+            <div class="v-node">2</div>
+            <div class="v-meta">
+                <span class="v-date">Iul 1941</span>
+                <span class="v-title">Basarabia</span>
+            </div>
+        </div>
+
+        <div class="v-timeline-item" onclick="afiseazaEtapa(2, this)">
+            <div class="v-node">3</div>
+            <div class="v-meta">
+                <span class="v-date">Oct 1941</span>
+                <span class="v-title">Odessa</span>
+            </div>
+        </div>
+
+        <div class="v-timeline-item" onclick="afiseazaEtapa(3, this)">
+            <div class="v-node">4</div>
+            <div class="v-meta">
+                <span class="v-date">Iarna 1942</span>
+                <span class="v-title">Stalingrad</span>
+            </div>
+        </div>
+
+        <div class="v-timeline-item" onclick="afiseazaEtapa(4, this)">
+            <div class="v-node">5</div>
+            <div class="v-meta">
+                <span class="v-date">Vara 1944</span>
+                <span class="v-title">Retragerea</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="timeline-detail-panel" id="detail-panel">
+        <div class="panel-header">
+            <span class="panel-badge" id="panel-badge">Faza I</span>
+            <h5 id="panel-title">Ordinul „Treceți Prutul!”</h5>
+        </div>
+        <p class="panel-desc" id="panel-desc">Generalul Ion Antonescu angajează România în război alături de Axă. Campania este percepută inițial ca un război legitim de eliberare.</p>
+
+    </div>
+</aside>
+            </div>
+
+            <div class="carousel-container">
+                <div class="carousel-slide active">
+                    <img src="poza_front1.jpg">
+                    <div class="carousel-caption">Harta operaţiunilor militare pe Frontul din Moldova după 23 august 1944. Superioritatea sovietică era de 1,4 ori la efective, de peste două ori la artilerie și aviație și de 4,5 ori la tancuri. În sectoarele de rupere superioritatea era de până la 4-6 ori.</div>
+                </div>
+
+                <div class="carousel-slide">
+                    <img src="poza_front2.webp">
+                    <div class="carousel-caption">Tancurile românești pe frontul de est.</div>
+                </div>
+
+                <div class="carousel-slide">
+                    <img src="poza_front3.jpg">
+                    <div class="carousel-caption">„La Stalingrad, ceața a fost un dezastru pentru noi. Rușii au profitat de o săptămână cu ceaţă… nu vedeam la zece metri.” – locotenentul Oleg Dombrovschi din Regimentul 25 Artilerie.</div>
+                </div>
+
+                <button class="carousel-btn prev-btn" onclick="schimbaPoza(-1)">&#10094;</button>
+                <button class="carousel-btn next-btn" onclick="schimbaPoza(1)">&#10095;</button>
+            </div>
+        </section>
+    </main>
+
+<script src="script.js"></script>
+</body>
+</html>

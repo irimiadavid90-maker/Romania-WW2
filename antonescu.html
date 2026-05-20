@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ion Antonescu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="title-container">
+            <img src="armenoi.png" class="arma-stanga" alt="">
+            <h1>România în Al Doilea Razboi Mondial</h1>
+            <img src="armenoi.png" class="arma-dreapta" alt="">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="base.html"><i class="fa-solid fa-house"></i></a></li>
+                <li><a href="pierderi.html">Pierderi teritoriale</a></li>
+                <li><a href="antonescu.html" class="active">Ion Antonescu</a></li>
+                <li><a href="frontul-est.html">Frontul de Est</a></li>
+                <li><a href="mihai.html">Regele Mihai I</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+
+                <li class="language-selector">
+                    <button class="lang-btn" id="lang-btn">
+                        <img src="steag_ro.png" alt="RO" class="flag-icon"> RO <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <ul class="lang-dropdown" id="lang-dropdown">
+                        <li><a href="antonescu_en.html"><img src="steag_en.png" alt="EN" class="flag-icon"> English</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="antonescu-section">
+            <h2>Ion Antonescu</h2>
+
+            <div class="content-wrapper">
+                <div class="main-text">
+                    <p class="reveal-on-scroll">În toamna tragică a anului 1940, când România era îngenuncheată de pierderi teritoriale imense, pe scena istoriei a revenit o figură care avea să marcheze definitiv soarta țării: generalul <strong>Ion Antonescu</strong>. Investit cu puteri depline și asumându-și titlul de „Conducător al Statului”, Antonescu a preluat frâiele unei țări izolate, într-un moment în care supraviețuirea României depindea de o alegere radicală.</p>
+
+                    <h3>Ordinul de trecere a Prutului</h3>
+                    <p class="reveal-on-scroll">Momentul definitoriu al regimului său a venit în zorii zilei de 22 iunie 1941. Printr-un ordin rămas celebru: <em>„Ostași, vă ordon: Treceți Prutul!”</em>, Antonescu a angajat România în cel de-al Doilea Război Mondial alături de Puterile Axei. Pentru majoritatea românilor de atunci, acesta nu era doar un aliniament politic, ci un „Război Sfânt” pentru eliberarea fraților din Basarabia și Nordul Bucovinei, teritorii smulse cu forța de Uniunea Sovietică în anul precedent.</p>
+
+                    <h3>Dincolo de Nistru</h3>
+                    <p class="reveal-on-scroll">După recuperarea rapidă a teritoriilor pierdute, Antonescu a luat decizia strategică de a continua înaintarea alături de armata germană dincolo de Nistru. Motivația sa era una pragmatică, dar riscantă: dorea să demonstreze loialitate față de Adolf Hitler pentru a obține ulterior sprijinul acestuia în recuperarea Transilvaniei de Nord. Această etapă a războiului a dus armata română în bătălii sângeroase, precum asediul Odessei și catastrofa de la Stalingrad, unde mii de soldați români și-au găsit sfârșitul departe de casă.</p>
+
+                    <h3>Sfârșitul regimului</h3>
+                    <p class="reveal-on-scroll">Pe măsură ce soarta războiului s-a întors împotriva Axei, Antonescu a realizat iminența unui dezastru național. Deși a permis contacte diplomatice discrete în vederea unui armistițiu la Stockholm sau Cairo, mareșalul a refuzat să accepte o capitulare necondiționată care, în viziunea sa, ar fi lăsat țara la mila ocupantului sovietic.</p>
+
+                    <p class="reveal-on-scroll">Această rigiditate a dus la deznodământul de la <strong>23 august 1944</strong>. Într-o încercare disperată de a salva restul țării de la distrugere, regele Mihai I l-a demis și arestat pe Ion Antonescu, trecând România de partea Aliaților. Generalul care pornise la luptă cu visul reîntregirii naționale avea să fie judecat ulterior de un Tribunal al Poporului și executat în 1946.</p>
+                </div>
+
+                <aside class="infobox">
+                    <img src="poza_antonescu.jpg" alt="Portret Ion Antonescu" class="profile-img">
+
+                    <h4>Ion Antonescu</h4>
+
+                    <ul class="profile-data">
+                        <li><strong>Născut:</strong> 15 iunie 1882, Pitești</li>
+                        <li><strong>Decedat:</strong> 1 iunie 1946, Jilava</li>
+                        <li><strong>Grad militar:</strong> Mareșal al României</li>
+                        <li><strong>Funcție:</strong> Prim-ministru (Conducător al Statului)</li>
+                        <li><strong>Perioadă guvernare:</strong> 1940 – 1944</li>
+                    </ul>
+                </aside>
+            </div>
+
+            <div class="audio-container">
+                <h4 class="audio-title">🔊 Mareșalul Ion Antonescu - Discurs către legionari, 6 Octombrie 1940</h4>
+                <p class="audio-desc">"În duhul Căpitanului și al neamului,în fața Regelui și a Generalului,ne legăm prin jertfa noastră supremă să facem cu toții un popor și o țară ca soarele sfânt de pe cer!" (Apasă pe radio ca să asculți)</p>
+
+                <img src="poza_radio.png" id="radio-btn" class="radio-image" title="Apasă pentru a ascuste">
+
+                <audio id="audio-antonescu">
+                    <source src="discurs_antonescu.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
