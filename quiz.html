@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz – România în Al Doilea Război Mondial</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+
+        #admin-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+            backdrop-filter: blur(4px);
+            opacity: 1;
+            transition: opacity 0.25s ease;
+        }
+
+        #admin-overlay.admin-hidden {
+            display: none;
+        }
+
+        .admin-panel {
+            background: #0e0e0e;
+            border: 1px solid #c1a04b;
+            border-radius: 0;
+            width: 100%;
+            max-width: 780px;
+            box-shadow: 0 0 40px rgba(193, 160, 75, 0.15);
+            animation: adminSlideIn 0.3s ease;
+        }
+
+        @keyframes adminSlideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to   { transform: translateY(0);     opacity: 1; }
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 24px;
+            border-bottom: 1px solid #c1a04b;
+        }
+
+        .admin-header h3 {
+            color: #c1a04b;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .admin-header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .admin-btn {
+            padding: 8px 16px;
+            border: 1px solid #c1a04b;
+            background: transparent;
+            color: #c1a04b;
+            border-radius: 0;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .admin-btn:hover {
+            background: #c1a04b;
+            color: #000;
+        }
+
+        .admin-btn.btn-primary {
+            background: #c1a04b;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .admin-btn.btn-primary:hover {
+            background: #b38b36;
+        }
+
+        .admin-btn.btn-danger {
+            border-color: #c0392b;
+            color: #c0392b;
+        }
+
+        .admin-btn.btn-danger:hover {
+            background: #c0392b;
+            color: #fff;
+        }
+
+        .admin-btn.btn-close {
+            border: none;
+            font-size: 1.2rem;
+            padding: 4px 10px;
+            color: #9d9d9d;
+        }
+
+        .admin-btn.btn-close:hover {
+            background: transparent;
+            color: #fff;
+        }
+
+        .admin-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid #1e1e1e;
+        }
+
+        .admin-toolbar-left {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .admin-count {
+            color: #9d9d9d;
+            font-size: 0.85rem;
+        }
+
+        #lista-intrebari {
+            padding: 16px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 55vh;
+            overflow-y: auto;
+        }
+
+        #lista-intrebari::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        #lista-intrebari::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        #lista-intrebari::-webkit-scrollbar-thumb {
+            background: #c1a04b;
+            border-radius: 0;
+        }
+
+        .admin-q-card {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 0;
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            transition: border-color 0.2s ease;
+        }
+
+        .admin-q-card:hover {
+            border-color: #3a3a3a;
+        }
+
+        .admin-q-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .admin-q-text {
+            color: #cccccc;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 6px;
+
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .admin-q-meta {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .admin-badge {
+            font-size: 0.72rem;
+            padding: 2px 8px;
+            border-radius: 0;
+            border: 1px solid #c1a04b;
+            color: #c1a04b;
+            white-space: nowrap;
+        }
+
+        .admin-corect {
+            font-size: 0.72rem;
+            color: #2ecc71;
+        }
+
+        .admin-q-actions {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .admin-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: #9d9d9d;
+        }
+
+        #admin-formular {
+            padding: 20px 24px;
+        }
+
+        .form-titlu {
+            color: #c1a04b;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #9d9d9d;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 0;
+            color: #cccccc;
+            padding: 10px 12px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: border-color 0.2s ease;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #c1a04b;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .form-group select option {
+            background: #1a1a1a;
+        }
+
+        .variante-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .varianta-item label {
+            display: block;
+            color: #9d9d9d;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+
+        .varianta-item input {
+            width: 100%;
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 0;
+            color: #cccccc;
+            padding: 9px 12px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .varianta-item input:focus {
+            border-color: #c1a04b;
+        }
+
+        .form-error {
+            background: rgba(192, 57, 43, 0.15);
+            border: 1px solid #c0392b;
+            color: #e74c3c;
+            padding: 10px 14px;
+            border-radius: 0;
+            font-size: 0.85rem;
+            margin-bottom: 14px;
+            display: none;
+        }
+
+        .form-error.vizibil {
+            display: block;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        #confirm-dialog {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.7);
+        }
+
+        #confirm-dialog.admin-hidden {
+            display: none;
+        }
+
+        .confirm-box {
+            background: #0e0e0e;
+            border: 1px solid #c0392b;
+            border-radius: 0;
+            padding: 28px 32px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .confirm-box p {
+            color: #cccccc;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .confirm-box strong {
+            color: #e74c3c;
+        }
+
+        .confirm-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        #admin-toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 10001;
+            background: #c1a04b;
+            color: #000;
+            padding: 12px 20px;
+            border-radius: 0;
+            font-size: 0.9rem;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        #admin-toast.toast-vizibil {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #ecran-start h2 {
+            cursor: default;
+            user-select: none;
+            position: relative;
+        }
+    </style>
+</head>
+<body class="quiz-page">
+
+    <header>
+        <div class="title-container">
+            <img src="armenoi.png" class="arma-stanga" alt="">
+            <h1>România în Al Doilea Razboi Mondial</h1>
+            <img src="armenoi.png" class="arma-dreapta" alt="">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="base.html"><i class="fa-solid fa-house"></i></a></li>
+                <li><a href="pierderi.html">Pierderi teritoriale</a></li>
+                <li><a href="antonescu.html">Ion Antonescu</a></li>
+                <li><a href="frontul-est.html">Frontul de Est</a></li>
+                <li><a href="mihai.html">Regele Mihai I</a></li>
+                <li><a href="quiz.html" class="active">Quiz</a></li>
+
+                <li class="language-selector">
+                    <button class="lang-btn" id="lang-btn">
+                        <img src="steag_ro.png" alt="RO" class="flag-icon"> RO <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <ul class="lang-dropdown" id="lang-dropdown">
+                        <li><a href="quiz_en.html"><img src="steag_en.png" alt="EN" class="flag-icon"> English</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="quiz-section">
+        <div class="quiz-card" id="quiz-card">
+
+            <div id="ecran-start" class="start-container">
+                <h2 id="quiz-titlu-secret">Quiz</h2>
+                <p>Testează-ți cunoștințele despre participarea României în Al Doilea Război Mondial.</p>
+                <button class="btn-start" onclick="incepeQuiz()">Începe</button>
+            </div>
+
+            <div id="ecran-quiz" style="display:none;">
+                <div class="quiz-header">
+                    <span class="quiz-progress-text" id="progress-text">Întrebarea 1 din 12</span>
+                    <span class="quiz-score-live" id="scor-live">Scor: 0</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="progress-bar" style="width: 0%"></div>
+                </div>
+                <p class="question-text" id="intrebare-text"></p>
+                <div class="optiuni-grid" id="optiuni-container"></div>
+                <div class="feedback-box" id="feedback-box"></div>
+                <button class="btn-urmator" id="btn-urmator" onclick="urmatoareaIntrebare()" disabled>
+                    Următoarea întrebare →
+                </button>
+            </div>
+
+            <div id="ecran-rezultat" style="display:none;" class="rezultat-container">
+                <p class="rezultat-titlu">Rezultat final</p>
+                <div class="rezultat-scor" id="scor-final"></div>
+                <p class="rezultat-label" id="rezultat-label-din"></p>
+                <div class="rezultat-mesaj" id="mesaj-final"></div>
+
+                <div class="raport-inteligent" id="raport-detaliat"></div>
+
+                <div class="rezultat-butoane" style="margin-top: 20px;">
+                    <button class="btn-reincepe" onclick="reincepe()">Încearcă din nou</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="admin-overlay" class="admin-hidden">
+        <div class="admin-panel">
+
+            <div class="admin-header">
+                <h3><i class="fa-solid fa-gear" style="margin-right:8px;"></i>Panou Administrator</h3>
+                <div class="admin-header-actions">
+                    <button class="admin-btn btn-close" onclick="inchideAdmin()" title="Închide">✕</button>
+                </div>
+            </div>
+
+            <div id="admin-sectiune-lista">
+                <div class="admin-toolbar">
+                    <div class="admin-toolbar-left">
+                        <button class="admin-btn btn-primary" onclick="aratFormularNou()">
+                            <i class="fa-solid fa-plus"></i> Adaugă întrebare
+                        </button>
+                        <span class="admin-count" id="admin-count-text"></span>
+                    </div>
+                    <button class="admin-btn btn-danger" onclick="cereConfirmareReset()">
+                        <i class="fa-solid fa-rotate-left"></i> Resetează
+                    </button>
+                </div>
+
+                <div id="lista-intrebari"></div>
+            </div>
+
+            <div id="admin-sectiune-formular" style="display:none;">
+                <div style="padding: 16px 24px; border-bottom: 1px solid #2a2a2a; display:flex; align-items:center; gap:10px;">
+                    <button class="admin-btn" onclick="inapoiLaLista()" style="padding:6px 10px;">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <h4 class="form-titlu" style="margin:0; border:none; padding:0;" id="formular-titlu">Adaugă Întrebare Nouă</h4>
+                </div>
+
+                <div id="admin-formular">
+                    <div class="form-error" id="form-error"></div>
+
+                    <div class="form-group">
+                        <label>Textul întrebării</label>
+                        <textarea id="f-intrebare" placeholder="Scrie întrebarea aici..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Variante de răspuns</label>
+                        <div class="variante-grid">
+                            <div class="varianta-item">
+                                <label>Varianta A</label>
+                                <input id="f-v0" placeholder="Varianta A" oninput="actualizeazaSelectCorect()">
+                            </div>
+                            <div class="varianta-item">
+                                <label>Varianta B</label>
+                                <input id="f-v1" placeholder="Varianta B" oninput="actualizeazaSelectCorect()">
+                            </div>
+                            <div class="varianta-item">
+                                <label>Varianta C</label>
+                                <input id="f-v2" placeholder="Varianta C" oninput="actualizeazaSelectCorect()">
+                            </div>
+                            <div class="varianta-item">
+                                <label>Varianta D</label>
+                                <input id="f-v3" placeholder="Varianta D" oninput="actualizeazaSelectCorect()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Răspuns corect</label>
+                        <select id="f-corect">
+                            <option value="0">Varianta A</option>
+                            <option value="1">Varianta B</option>
+                            <option value="2">Varianta C</option>
+                            <option value="3">Varianta D</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Explicație (afișată după răspuns)</label>
+                        <textarea id="f-explicatie" placeholder="Explică de ce răspunsul corect este cel ales..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Capitol / Categorie</label>
+                        <select id="f-categorie">
+                            <option value="pierderi">Pierderi Teritoriale</option>
+                            <option value="antonescu">Regimul Ion Antonescu</option>
+                            <option value="frontul_est">Frontul de Est</option>
+                            <option value="mihai">Regele Mihai I</option>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="admin-btn" onclick="inapoiLaLista()">Anulează</button>
+                        <button class="admin-btn btn-primary" onclick="salveazaIntrebare()">
+                            <i class="fa-solid fa-floppy-disk"></i> Salvează
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="confirm-dialog" class="admin-hidden">
+        <div class="confirm-box">
+            <p>Ești sigur că vrei să <strong>resetezi toate întrebările</strong> la valorile originale?<br>
+            Toate modificările adăugate vor fi pierdute.</p>
+            <div class="confirm-actions">
+                <button class="admin-btn" onclick="inchideConfirm()">Anulează</button>
+                <button class="admin-btn btn-danger" onclick="executaReset()">
+                    <i class="fa-solid fa-rotate-left"></i> Resetează
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="admin-toast"></div>
+
+    <script>
+
+    const STORAGE_KEY = 'quiz_intrebari_ro';
+
+    const INFO_CATEGORII = {
+        pierderi:    { nume: "Pierderi Teritoriale",    link: "pierderi.html" },
+        antonescu:   { nume: "Regimul Ion Antonescu",   link: "antonescu.html" },
+        frontul_est: { nume: "Frontul de Est",          link: "frontul-est.html" },
+        mihai:       { nume: "Regele Mihai I",          link: "mihai.html" }
+    };
+
+    const INTREBARI_DEFAULT = [
+
+        {
+            intrebare: "În ce an a pierdut România Basarabia și Bucovina de Nord în favoarea URSS?",
+            variante: ["1938", "1939", "1940", "1941"],
+            corect: "1940",
+            explicatie: "Pe 26 iunie 1940, URSS a trimis un ultimatum și România a cedat teritoriile în decurs de 24 de ore.",
+            categorie: "pierderi"
+        },
+        {
+            intrebare: "Prin ce act diplomatic a pierdut România Transilvania de Nord în 1940?",
+            variante: ["Tratatul de la Paris", "Pactul Ribbentrop-Molotov", "Dictatul de la Viena", "Tratatul de la Craiova"],
+            corect: "Dictatul de la Viena",
+            explicatie: "Pe 30 august 1940, la Palatul Belvedere din Viena, Germania și Italia au impus cedarea Transilvaniei de Nord.",
+            categorie: "pierderi"
+        },
+        {
+            intrebare: "Câți km² a pierdut România prin Dictatul de la Viena?",
+            variante: ["23.000 km²", "43.492 km²", "50.760 km²", "35.000 km²"],
+            corect: "43.492 km²",
+            explicatie: "S-au pierdut 43.492 km² din Transilvania de Nord, cu peste 2,6 milioane de locuitori.",
+            categorie: "pierderi"
+        },
+        {
+            intrebare: "Cui a fost cedat Cadrilaterul prin Tratatul de la Craiova din septembrie 1940?",
+            variante: ["Iugoslaviei", "Greciei", "Ungariei", "Bulgariei"],
+            corect: "Bulgariei",
+            explicatie: "Pe 7 septembrie 1940, Cadrilaterul a fost cedat Bulgariei.",
+            categorie: "pierderi"
+        },
+        {
+            intrebare: "Ce teritoriu a ocupat URSS în plus față de cel cerut prin ultimatum, în iunie 1940?",
+            variante: ["Dobrogea de Sud", "Ținutul Herța", "Nordul Moldovei", "Insula Șerpilor"],
+            corect: "Ținutul Herța",
+            explicatie: "Deși nu fusese menționat în ultimatum, sovieticii au ocupat abuziv și Ținutul Herța, o zonă românească din apropierea Bucovinei.",
+            categorie: "pierderi"
+        },
+
+        {
+            intrebare: "Ce titlu și-a asumat Ion Antonescu după preluarea puterii în 1940?",
+            variante: ["Rege al României", "Conducător al Statului", "Președinte al Republicii", "Regent al României"],
+            corect: "Conducător al Statului",
+            explicatie: "Antonescu și-a asumat titlul de „Conducător al Statului.",
+            categorie: "antonescu"
+        },
+        {
+            intrebare: "În ce an a fost executat mareșalul Ion Antonescu?",
+            variante: ["1944", "1945", "1946", "1947"],
+            corect: "1946",
+            explicatie: "A fost executat pe 1 iunie 1946 la Jilava, după ce a fost condamnat de Tribunalul Poporului.",
+            categorie: "antonescu"
+        },
+        {
+            intrebare: "Alături de ce mișcare politică a format Antonescu guvernul în septembrie 1940?",
+            variante: ["Partidul Național Liberal", "Mișcarea Legionară", "Partidul Național Țărănesc", "Frontul Renașterii Naționale"],
+            corect: "Mișcarea Legionară",
+            explicatie: "Antonescu a format inițial un guvern împreună cu Mișcarea Legionară (Garda de Fier), colaborare încheiată prin rebeliunea legionară din ianuarie 1941.",
+            categorie: "antonescu"
+        },
+        {
+            intrebare: "Ce grad militar deținea Ion Antonescu la momentul preluării puterii în septembrie 1940?",
+            variante: ["General de brigadă", "General de corp de armată", "Mareșal", "General de armată"],
+            corect: "General de corp de armată",
+            explicatie: "Antonescu era general de corp de armată când a preluat puterea. Titlul de Mareșal i-a fost acordat în august 1941, după succesele militare din Basarabia.",
+            categorie: "antonescu"
+        },
+        {
+            intrebare: "Care a fost principala motivație strategică a lui Antonescu pentru a continua războiul dincolo de Nistru?",
+            variante: ["Cucerirea Moscovei", "Obținerea sprijinului lui Hitler pentru recuperarea Transilvaniei de Nord", "Accesul la resursele petroliere din Caucaz", "Presiunea armatei germane"],
+            corect: "Obținerea sprijinului lui Hitler pentru recuperarea Transilvaniei de Nord",
+            explicatie: "Antonescu urmărea să demonstreze loialitate față de Hitler pentru a obține ulterior sprijinul acestuia în recuperarea Transilvaniei de Nord, pierdută prin Dictatul de la Viena.",
+            categorie: "antonescu"
+        },
+
+        {
+            intrebare: "Care a fost ordinul celebru dat de Antonescu pe 22 iunie 1941?",
+            variante: ['"Înainte, pentru România!"', '"Treceți Prutul!"', '"La arme, ostași!"', '"Pentru rege și țară!"'],
+            corect: '"Treceți Prutul!"',
+            explicatie: "Acesta a fost ordinul prin care România a intrat în război pentru eliberarea Basarabiei.",
+            categorie: "frontul_est"
+        },
+        {
+            intrebare: "În câte zile au recuperat trupele române Basarabia și Bucovina de Nord în vara lui 1941?",
+            variante: ["15 zile", "22 zile", "33 zile", "45 zile"],
+            corect: "33 zile",
+            explicatie: "Armata română a recuperat provinciile pierdute în doar 33 de zile de lupte intense.",
+            categorie: "frontul_est"
+        },
+        {
+            intrebare: "Câți soldați români au pierit sau au fost luați prizonieri la dezastrul de la Cotul Donului?",
+            variante: ["Aproximativ 50.000", "Aproximativ 90.000", "Aproximativ 150.000", "Aproximativ 200.000"],
+            corect: "Aproximativ 150.000",
+            explicatie: "Contraofensiva sovietică (Operațiunea Uranus) a dus la pierderea a aprox. 150.000 de soldați români.",
+            categorie: "frontul_est"
+        },
+        {
+            intrebare: "Cum se numea teritoriul dintre Nistru și Bug, dat în administrare României după 1941?",
+            variante: ["Basarabia", "Transnistria", "Transcarpatia", "Crimeea"],
+            corect: "Transnistria",
+            explicatie: "Transnistria era teritoriul dintre râurile Nistru și Bug, administrat de România în urma înaintării alături de Germania în 1941.",
+            categorie: "frontul_est"
+        },
+        {
+            intrebare: "Câte victime (morți, răniți, dispăruți) a înregistrat România la asediul Odessei din 1941?",
+            variante: ["Peste 30.000", "Peste 60.000", "Peste 90.000", "Peste 120.000"],
+            corect: "Peste 90.000",
+            explicatie: "Bătălia pentru Odessa, purtată aproape exclusiv de armata română, s-a soldat cu peste 90.000 de victime.",
+            categorie: "frontul_est"
+        },
+
+        {
+            intrebare: "Ce vârstă avea Regele Mihai I când a orchestrat actul de la 23 august 1944?",
+            variante: ["18 ani", "20 ani", "22 ani", "25 ani"],
+            corect: "22 ani",
+            explicatie: "Născut pe 25 octombrie 1921, Regele Mihai avea doar 22 de ani când a schimbat cursul istoriei.",
+            categorie: "mihai"
+        },
+        {
+            intrebare: "În ce an a fost forțat Regele Mihai I să abdice de către regimul comunist?",
+            variante: ["1944", "1945", "1946", "1947"],
+            corect: "1947",
+            explicatie: "Regele Mihai I a fost forțat să abdice pe 30 decembrie 1947, când România a fost proclamată republică populară.",
+            categorie: "mihai"
+        },
+        {
+            intrebare: "Ce decorație i-a acordat Stalin Regelui Mihai pentru actul de la 23 august 1944?",
+            variante: ["Crucea de Fier", "Ordinul Victory", "Legiunea de Onoare", "Ordinul Imperiului Britanic"],
+            corect: "Ordinul Victory",
+            explicatie: "Stalin i-a acordat Regelui Mihai I Ordinul Victory (Победа), una dintre cele mai înalte decorații militare sovietice, pentru rolul său crucial în întoarcerea armelor.",
+            categorie: "mihai"
+        },
+        {
+            intrebare: "Unde s-a stabilit Regele Mihai I după abdicarea forțată din 1947?",
+            variante: ["Franța", "Anglia", "Elveția", "Statele Unite"],
+            corect: "Elveția",
+            explicatie: "Regele Mihai s-a stabilit în Elveția, unde a trăit în exil timp de decenii. A murit la Aubonne, Elveția, în 2017.",
+            categorie: "mihai"
+        },
+        {
+            intrebare: "Cum a prezentat regimul comunist evenimentele de la 23 august 1944 în manualele de istorie?",
+            variante: ["Ca act al Regelui Mihai", "Ca insurecție armată condusă de Partidul Comunist", "Ca victorie a armatei române", "Ca rezultat al presiunii Aliaților occidentali"],
+            corect: "Ca insurecție armată condusă de Partidul Comunist",
+            explicatie: 'Regimul comunist a falsificat istoria, prezentând 23 august ca o "insurecție armată antifascistă" condusă de comuniști, deși partidul era aproape inexistent la acea dată.',
+            categorie: "mihai"
+        }
+
+    ];
+
+    function incarcaIntrebari() {
+        try {
+            const salvate = localStorage.getItem(STORAGE_KEY);
+            if (salvate) {
+                const parsed = JSON.parse(salvate);
+
+                if (Array.isArray(parsed) && parsed.length >= INTREBARI_DEFAULT.length) {
+                    return parsed;
+                }
+            }
+        } catch (e) {
+            console.warn('Quiz: eroare la citirea întrebărilor din localStorage.', e);
+        }
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(INTREBARI_DEFAULT));
+        return INTREBARI_DEFAULT;
+    }
+
+    function salveazaIntrebariLS(intrebari) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(intrebari));
+    }
+
+    let intrebariCurente = [];
+    let indexCurent     = 0;
+    let scor            = 0;
+    let raspunsData     = false;
+    let rezultateCategorii = {};
+
+    function amesteca(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function selecteazaEchilibrat(nPerCategorie = 3) {
+        const toate     = incarcaIntrebari();
+        const categorii = Object.keys(INFO_CATEGORII);
+        let selectate   = [];
+
+        categorii.forEach(cat => {
+            const dinCat     = toate.filter(q => q.categorie === cat);
+            const amestecate = amesteca(dinCat);
+            selectate        = selectate.concat(amestecate.slice(0, nPerCategorie));
+        });
+
+        return amesteca(selectate);
+    }
+
+    function incepeQuiz() {
+
+        intrebariCurente = selecteazaEchilibrat(3);
+        indexCurent      = 0;
+        scor             = 0;
+
+        rezultateCategorii = {};
+        Object.keys(INFO_CATEGORII).forEach(k => {
+            rezultateCategorii[k] = { total: 0, corect: 0 };
+        });
+
+        document.getElementById('ecran-start').style.display    = 'none';
+        document.getElementById('ecran-rezultat').style.display = 'none';
+        document.getElementById('ecran-quiz').style.display     = 'block';
+
+        afiseazaIntrebare();
+    }
+
+    function afiseazaIntrebare() {
+        const q = intrebariCurente[indexCurent];
+        raspunsData = false;
+
+        const total = intrebariCurente.length;
+
+        document.getElementById('progress-text').textContent  = `Întrebarea ${indexCurent + 1} din ${total}`;
+        document.getElementById('scor-live').textContent      = `Scor: ${scor}`;
+        document.getElementById('progress-bar').style.width   = `${(indexCurent / total) * 100}%`;
+        document.getElementById('intrebare-text').textContent = q.intrebare;
+
+        const feedback       = document.getElementById('feedback-box');
+        feedback.className   = 'feedback-box';
+        feedback.textContent = '';
+
+        const btn        = document.getElementById('btn-urmator');
+        btn.disabled     = true;
+        btn.textContent  = indexCurent < total - 1 ? 'Următoarea întrebare →' : 'Vezi rezultatul →';
+
+        const container  = document.getElementById('optiuni-container');
+        container.innerHTML = '';
+
+        amesteca(q.variante).forEach(varianta => {
+            const b       = document.createElement('button');
+            b.className   = 'optiune-btn';
+            b.textContent = varianta;
+            b.onclick     = () => selecteazaRaspuns(b, varianta, q);
+            container.appendChild(b);
+        });
+    }
+
+    function selecteazaRaspuns(btn, varianta, q) {
+        if (raspunsData) return;
+        raspunsData = true;
+
+        if (!rezultateCategorii[q.categorie]) {
+            rezultateCategorii[q.categorie] = { total: 0, corect: 0 };
+        }
+        rezultateCategorii[q.categorie].total++;
+
+        const toate = document.querySelectorAll('.optiune-btn');
+        toate.forEach(b => {
+            b.disabled = true;
+            if (b.textContent === q.corect) b.classList.add('corecta');
+        });
+
+        const feedback = document.getElementById('feedback-box');
+
+        if (varianta === q.corect) {
+            scor++;
+            rezultateCategorii[q.categorie].corect++;
+            btn.classList.add('corecta');
+            feedback.className   = 'feedback-box corect';
+            feedback.innerHTML   = `<strong>✓ Corect!</strong> ${q.explicatie}`;
+        } else {
+            btn.classList.add('gresita');
+            feedback.className   = 'feedback-box gresit';
+            feedback.innerHTML   = `<strong>✗ Greșit.</strong> Răspunsul corect este <strong>${q.corect}</strong>. ${q.explicatie}`;
+        }
+
+        document.getElementById('scor-live').textContent       = `Scor: ${scor}`;
+        document.getElementById('btn-urmator').disabled        = false;
+    }
+
+    function urmatoareaIntrebare() {
+        indexCurent++;
+        if (indexCurent < intrebariCurente.length) {
+            afiseazaIntrebare();
+        } else {
+            afiseazaRezultat();
+        }
+    }
+
+    function afiseazaRezultat() {
+        document.getElementById('ecran-quiz').style.display     = 'none';
+        document.getElementById('ecran-rezultat').style.display = 'block';
+        document.getElementById('progress-bar').style.width     = '100%';
+
+        const total = intrebariCurente.length;
+        document.getElementById('scor-final').textContent          = `${scor}/${total}`;
+        document.getElementById('rezultat-label-din').textContent  = `din ${total} întrebări corecte`;
+
+        const procent = (scor / total) * 100;
+        const mesaje  = [
+            { pana: 40,  text: "Mai ai de studiat. Analizează raportul de mai jos și recitește secțiunile recomandate." },
+            { pana: 70,  text: "Rezultat mediu. Cunoști bazele, dar mai sunt lucruri de aprofundat." },
+            { pana: 90,  text: "Bine! Cunoști foarte bine istoria acestei perioade." },
+            { pana: 100, text: "Excelent! Ești un adevărat cunoscător al istoriei României în Al Doilea Război Mondial." }
+        ];
+        const m = mesaje.find(m => procent <= m.pana);
+        document.getElementById('mesaj-final').textContent = m ? m.text : mesaje[mesaje.length - 1].text;
+
+        genereazaRaportCategorii();
+    }
+
+    function genereazaRaportCategorii() {
+        const container = document.getElementById('raport-detaliat');
+        let html        = '';
+
+        for (const [cheie, data] of Object.entries(rezultateCategorii)) {
+            if (data.total === 0) continue;
+
+            const procent   = (data.corect / data.total) * 100;
+            const info      = INFO_CATEGORII[cheie];
+            const clasaCSS  = procent === 100 ? 'perfect' : 'necesita-studiu';
+            const iconita   = procent === 100 ? '<i class="fa-solid fa-check" style="color:#2ecc71; margin-right:5px;"></i>' : '';
+            const linkStudiu = procent < 100
+                ? `<span class="raport-recomandare">Recitește: <a href="${info.link}">${info.nume}</a></span>`
+                : `<span class="raport-recomandare" style="color:#2ecc71;">Cunoștințe asimilate!</span>`;
+
+            html += `
+                <div class="raport-item ${clasaCSS}">
+                    <div class="raport-info-stanga">
+                        <span class="raport-nume-capitol">${iconita}${info.nume}</span>
+                        ${linkStudiu}
+                    </div>
+                    <div class="raport-scor-capitol">${data.corect}/${data.total}</div>
+                </div>`;
+        }
+
+        container.innerHTML = html;
+    }
+
+    function reincepe() {
+        document.getElementById('ecran-rezultat').style.display = 'none';
+        document.getElementById('ecran-start').style.display    = 'block';
+    }
+
+    let clickCount = 0;
+    let clickTimer = null;
+
+    document.getElementById('quiz-titlu-secret').addEventListener('click', () => {
+        clickCount++;
+        clearTimeout(clickTimer);
+
+        clickTimer = setTimeout(() => { clickCount = 0; }, 3000);
+
+        if (clickCount >= 5) {
+            clickCount = 0;
+            deschideAdmin();
+        }
+    });
+
+    let adminIntrebari    = [];
+    let adminIndexEditat  = -1;
+
+    function deschideAdmin() {
+        adminIntrebari = incarcaIntrebari();
+        randeazaListaAdmin();
+        document.getElementById('admin-overlay').classList.remove('admin-hidden');
+        aratSectiunaLista();
+    }
+
+    function inchideAdmin() {
+        document.getElementById('admin-overlay').classList.add('admin-hidden');
+    }
+
+    function aratSectiunaLista() {
+        document.getElementById('admin-sectiune-lista').style.display    = 'block';
+        document.getElementById('admin-sectiune-formular').style.display = 'none';
+    }
+
+    function aratSectiunaFormular() {
+        document.getElementById('admin-sectiune-lista').style.display    = 'none';
+        document.getElementById('admin-sectiune-formular').style.display = 'block';
+    }
+
+    function inapoiLaLista() {
+        aratSectiunaLista();
+        randeazaListaAdmin();
+        ascundeEroare();
+    }
+
+    function randeazaListaAdmin() {
+        const container = document.getElementById('lista-intrebari');
+        const count     = document.getElementById('admin-count-text');
+        count.textContent = `${adminIntrebari.length} întrebări`;
+
+        if (adminIntrebari.length === 0) {
+            container.innerHTML = `
+                <div class="admin-empty">
+                    <i class="fa-solid fa-circle-exclamation" style="font-size:2rem; color:#c1a04b; display:block; margin-bottom:10px;"></i>
+                    Nu există nicio întrebare. Adaugă una!
+                </div>`;
+            return;
+        }
+
+        container.innerHTML = adminIntrebari.map((q, i) => {
+            const catInfo = INFO_CATEGORII[q.categorie] || { nume: q.categorie };
+            return `
+            <div class="admin-q-card">
+                <div class="admin-q-body">
+                    <div class="admin-q-text">${i + 1}. ${q.intrebare}</div>
+                    <div class="admin-q-meta">
+                        <span class="admin-badge">${catInfo.nume}</span>
+                        <span class="admin-corect">✓ ${q.corect}</span>
+                    </div>
+                </div>
+                <div class="admin-q-actions">
+                    <button class="admin-btn" onclick="editeazaIntrebare(${i})" title="Editează">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="admin-btn btn-danger" onclick="stergeIntrebare(${i})" title="Șterge">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    function aratFormularNou() {
+        adminIndexEditat = -1;
+        document.getElementById('formular-titlu').textContent = 'Adaugă Întrebare Nouă';
+        curatFormular();
+        ascundeEroare();
+        aratSectiunaFormular();
+    }
+
+    function editeazaIntrebare(index) {
+        adminIndexEditat = index;
+        const q = adminIntrebari[index];
+
+        document.getElementById('formular-titlu').textContent = 'Editează Întrebare';
+        document.getElementById('f-intrebare').value    = q.intrebare;
+        document.getElementById('f-explicatie').value   = q.explicatie;
+        document.getElementById('f-categorie').value    = q.categorie;
+
+        q.variante.forEach((v, i) => {
+            const input = document.getElementById(`f-v${i}`);
+            if (input) input.value = v;
+        });
+
+        actualizeazaSelectCorect();
+        const correctIndex = q.variante.indexOf(q.corect);
+        document.getElementById('f-corect').value = correctIndex >= 0 ? correctIndex : 0;
+
+        ascundeEroare();
+        aratSectiunaFormular();
+    }
+
+    function actualizeazaSelectCorect() {
+        const sel        = document.getElementById('f-corect');
+        const valCurenta = sel.value;
+
+        sel.innerHTML = [0, 1, 2, 3].map(i => {
+            const val   = document.getElementById(`f-v${i}`)?.value.trim();
+            const label = val || `Varianta ${String.fromCharCode(65 + i)}`;
+            return `<option value="${i}">${label}</option>`;
+        }).join('');
+
+        if (valCurenta !== undefined) sel.value = valCurenta;
+    }
+
+    function salveazaIntrebare() {
+        const intrebare  = document.getElementById('f-intrebare').value.trim();
+        const variante   = [0, 1, 2, 3].map(i => document.getElementById(`f-v${i}`).value.trim());
+        const corectIdx  = parseInt(document.getElementById('f-corect').value);
+        const explicatie = document.getElementById('f-explicatie').value.trim();
+        const categorie  = document.getElementById('f-categorie').value;
+
+        if (!intrebare) {
+            aratEroare('Completează textul întrebării.');
+            return;
+        }
+        if (variante.some(v => !v)) {
+            aratEroare('Completează toate cele 4 variante de răspuns.');
+            return;
+        }
+        if (!explicatie) {
+            aratEroare('Adaugă o explicație pentru răspunsul corect.');
+            return;
+        }
+
+        const q = {
+            intrebare,
+            variante,
+            corect:     variante[corectIdx],
+            explicatie,
+            categorie
+        };
+
+        if (adminIndexEditat === -1) {
+            adminIntrebari.push(q);
+            afiseazaToast('Întrebare adăugată!');
+        } else {
+            adminIntrebari[adminIndexEditat] = q;
+            afiseazaToast('Întrebare actualizată!');
+        }
+
+        salveazaIntrebariLS(adminIntrebari);
+        inapoiLaLista();
+    }
+
+    function stergeIntrebare(index) {
+        const textScurt = adminIntrebari[index].intrebare.substring(0, 60);
+        if (!confirm(`Ștergi întrebarea:\n"${textScurt}..."?`)) return;
+
+        adminIntrebari.splice(index, 1);
+        salveazaIntrebariLS(adminIntrebari);
+        randeazaListaAdmin();
+        afiseazaToast('Întrebare ștearsă.');
+    }
+
+    function cereConfirmareReset() {
+        document.getElementById('confirm-dialog').classList.remove('admin-hidden');
+    }
+
+    function inchideConfirm() {
+        document.getElementById('confirm-dialog').classList.add('admin-hidden');
+    }
+
+    function executaReset() {
+        localStorage.removeItem(STORAGE_KEY);
+        adminIntrebari = [...INTREBARI_DEFAULT];
+        salveazaIntrebariLS(adminIntrebari);
+        inchideConfirm();
+        randeazaListaAdmin();
+        afiseazaToast('Întrebările au fost resetate la valorile originale.');
+    }
+
+    function curatFormular() {
+        document.getElementById('f-intrebare').value  = '';
+        document.getElementById('f-explicatie').value = '';
+        document.getElementById('f-categorie').value  = 'pierderi';
+        [0, 1, 2, 3].forEach(i => {
+            const el = document.getElementById(`f-v${i}`);
+            if (el) el.value = '';
+        });
+        actualizeazaSelectCorect();
+    }
+
+    function aratEroare(mesaj) {
+        const el      = document.getElementById('form-error');
+        el.textContent = mesaj;
+        el.classList.add('vizibil');
+    }
+
+    function ascundeEroare() {
+        const el = document.getElementById('form-error');
+        el.classList.remove('vizibil');
+    }
+
+    let toastTimer = null;
+    function afiseazaToast(mesaj) {
+        const toast      = document.getElementById('admin-toast');
+        toast.textContent = mesaj;
+        toast.classList.add('toast-vizibil');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('toast-vizibil'), 2500);
+    }
+
+    const langBtn      = document.getElementById('lang-btn');
+    const langDropdown = document.getElementById('lang-dropdown');
+
+    if (langBtn && langDropdown) {
+        langBtn.addEventListener('click', function (e) {
+            langDropdown.classList.toggle('show');
+            e.stopPropagation();
+        });
+        document.addEventListener('click', function (e) {
+            if (!langDropdown.contains(e.target)) {
+                langDropdown.classList.remove('show');
+            }
+        });
+    }
+    </script>
+
+</body>
+</html>
