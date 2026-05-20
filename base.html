@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>România în Al Doilea Război Mondial</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="home-fara-scroll">
+
+    <header>
+        <div class="title-container">
+            <img src="armenoi.png" class="arma-stanga" alt="">
+            <h1>România în Al Doilea Razboi Mondial</h1>
+            <img src="armenoi.png" class="arma-dreapta" alt="">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="base.html" class="active"><i class="fa-solid fa-house"></i></a></li>
+                <li><a href="pierderi.html">Pierderi teritoriale</a></li>
+                <li><a href="antonescu.html">Ion Antonescu</a></li>
+                <li><a href="frontul-est.html">Frontul de Est</a></li>
+                <li><a href="mihai.html">Regele Mihai I</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+
+                <li class="language-selector">
+                    <button class="lang-btn" id="lang-btn">
+                        <img src="steag_ro.png" alt="RO" class="flag-icon"> RO <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <ul class="lang-dropdown" id="lang-dropdown">
+                        <li><a href="base_en.html"><img src="steag_en.png" alt="EN" class="flag-icon"> English</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="homepage-hero">
+        <video autoplay loop muted playsinline class="hero-video">
+            <source src="fundal.mp4" type="video/mp4">
+        </video>
+        <div class="quote-container">
+            <p class="history-quote">
+                „Istoria nu va uita pe vinovați și vinovați suntem cu toții: unii, pentru că am tăcut. Alții, pentru că am greșit. Cu toții, pentru că am suportat.” - Ion Antonescu
+            </p>
+        </div>
+        <img src="miller-removebg-preview.png" class="corner-image">
+    </main>
+
+    <script>
+        const langBtn = document.getElementById('lang-btn');
+        const langDropdown = document.getElementById('lang-dropdown');
+
+        langBtn.addEventListener('click', function(event) {
+            langDropdown.classList.toggle('show');
+            event.stopPropagation();
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!langDropdown.contains(event.target)) {
+                langDropdown.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
