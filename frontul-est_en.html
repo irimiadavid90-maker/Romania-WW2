@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eastern Front</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="title-container">
+            <img src="armenoi.png" class="arma-stanga" alt="">
+            <h1>Romania in World War II</h1>
+            <img src="armenoi.png" class="arma-dreapta" alt="">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="base_en.html"><i class="fa-solid fa-house"></i></a></li>
+                <li><a href="pierderi_en.html">Territorial Losses</a></li>
+                <li><a href="antonescu_en.html">Ion Antonescu</a></li>
+                <li><a href="frontul-est_en.html" class="active">Eastern Front</a></li>
+                <li><a href="mihai_en.html">King Michael I</a></li>
+                <li><a href="quiz_en.html">Quiz</a></li>
+
+                <li class="language-selector">
+                    <button class="lang-btn" id="lang-btn">
+                        <img src="steag_en.png" alt="EN" class="flag-icon"> EN <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <ul class="lang-dropdown" id="lang-dropdown">
+                        <li><a href="frontul-est.html"><img src="steag_ro.png" alt="RO" class="flag-icon"> Română</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="frontul-de-est">
+            <h2>From the Prut to Stalingrad</h2>
+
+            <div class="content-wrapper">
+                <div class="main-text">
+                    <p class="reveal-on-scroll">Romania's participation on the Eastern Front represented the largest military effort in the country's history. Beyond the cold numbers of statistics, this war was lived by hundreds of thousands of soldiers, mostly young peasants, as a painful journey between the hope of national reunification and the agony of survival in the endless steppes of the East.</p>
+
+                    <h3>The Liberation of Bessarabia and Northern Bukovina</h3>
+                    <p class="reveal-on-scroll">It all began under the sign of moral reparation. Between <strong>June 22 and July 26, 1941</strong>, Romanian troops managed to recover the provinces lost a year before in just 33 days of intense fighting, the soldiers being motivated to save their brethren on the other side of the river.</p>
+
+                    <h3>The Battle of Odessa</h3>
+                    <p class="reveal-on-scroll">After reaching the old border on the Dniester River, the war took on another dimension. The greatest ordeal of 1941 was the <strong>Siege of Odessa</strong>, a battle fought almost exclusively by the Romanian army. Although victory was achieved in October, the price was bloody: over 90’000 men were lost (killed, wounded, or missing). Subsequently, Romanian divisions were sent further and further from home, fighting in Crimea, at Sevastopol, and advancing as far as the Caucasus Mountains.</p>
+
+                    <h3>The Tragedies</h3>
+                    <p class="reveal-on-scroll">The winter of 1942 marked the darkest chapter in our military history. Deployed on a front far too wide at the <strong>Don Bend</strong> and in the Kalmyk Steppe, Romanian troops were hit by the massive counteroffensive of the Soviet Union.</p>
+                    <p class="reveal-on-scroll">Without modern anti-tank weaponry and poorly equipped for the -30°C frost, Romanian soldiers were decimated. The images from back then describe a harsh reality, with men fighting in the snow to total exhaustion. The toll was catastrophic: approximately <strong>150’000 soldiers</strong> perished or were taken prisoner, many ending up in the camps of Siberia.</p>
+
+                    <h3>The Retreat</h3>
+                    <p class="reveal-on-scroll">The defeat at Stalingrad definitively changed the course of events. From that moment on, the Romanian army found itself in a continuous and exhausting retreat. In the spring of 1944, the front reached Romanian soil once again, in Moldavia, transforming the country into a theater of operations. This desperate situation forced the act of <strong>August 23, 1944</strong>, when Romania left the Axis, putting an end to a campaign in the east that had left behind hundreds of thousands of grieving families.</p>
+                </div>
+
+                <aside class="timeline-box">
+    <h4 class="timeline-title"><i class="fa-solid fa-clock-rotate-left"></i> CHRONOLOGICAL MILESTONES</h4>
+
+    <div class="vertical-timeline-container">
+        <div class="v-timeline-track">
+            <div class="v-timeline-bar" id="v-timeline-bar"></div>
+        </div>
+
+        <div class="v-timeline-item active" onclick="afiseazaEtapa(0, this)">
+            <div class="v-node">1</div>
+            <div class="v-meta">
+                <span class="v-date">June 22, 1941</span>
+                <span class="v-title">Attack Order</span>
+            </div>
+        </div>
+
+        <div class="v-timeline-item" onclick="afiseazaEtapa(1, this)">
+            <div class="v-node">2</div>
+            <div class="v-meta">
+                <span class="v-date">July 1941</span>
+                <span class="v-title">Bessarabia</span>
+            </div>
+        </div>
+
+        <div class="v-timeline-item" onclick="afiseazaEtapa(2, this)">
+            <div class="v-node">3</div>
+            <div class="v-meta">
+                <span class="v-date">Oct 1941</span>
+                <span class="v-title">Odessa</span>
+            </div>
+        </div>
+
+        <div class="v-timeline-item" onclick="afiseazaEtapa(3, this)">
+            <div class="v-node">4</div>
+            <div class="v-meta">
+                <span class="v-date">Winter 1942</span>
+                <span class="v-title">Stalingrad</span>
+            </div>
+        </div>
+
+        <div class="v-timeline-item" onclick="afiseazaEtapa(4, this)">
+            <div class="v-node">5</div>
+            <div class="v-meta">
+                <span class="v-date">Summer 1944</span>
+                <span class="v-title">The Retreat</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="timeline-detail-panel" id="detail-panel">
+        <div class="panel-header">
+            <span class="panel-badge" id="panel-badge">Phase I</span>
+            <h5 id="panel-title">The Order: "Cross the Prut!"</h5>
+        </div>
+        <p class="panel-desc" id="panel-desc">General Ion Antonescu commits the Romanian army alongside the Axis. The campaign is initially perceived as a legitimate war of liberation.</p>
+
+    </div>
+</aside>
+            </div>
+
+            <div class="carousel-container">
+                <div class="carousel-slide active">
+                    <img src="poza_front1.jpg">
+                    <div class="carousel-caption">Map of military operations on the Moldavian Front after August 23, 1944. Soviet superiority was 1.4 times in troops, more than double in artillery and aviation, and 4.5 times in tanks. In breakthrough sectors, superiority reached up to 4-6 times.</div>
+                </div>
+
+                <div class="carousel-slide">
+                    <img src="poza_front2.webp">
+                    <div class="carousel-caption">Romanian tanks on the Eastern Front.</div>
+                </div>
+
+                <div class="carousel-slide">
+                    <img src="poza_front3.jpg">
+                    <div class="carousel-caption">“At Stalingrad, the fog was a disaster for us. The Russians took advantage of a week of fog… we couldn't see ten meters ahead.” – Lieutenant Oleg Dombrovschi from the 25th Artillery Regiment.</div>
+                </div>
+
+                <button class="carousel-btn prev-btn" onclick="schimbaPoza(-1)">&#10094;</button>
+                <button class="carousel-btn next-btn" onclick="schimbaPoza(1)">&#10095;</button>
+            </div>
+        </section>
+    </main>
+
+<script src="script.js"></script>
+</body>
+</html>

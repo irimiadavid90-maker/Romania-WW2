@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ion Antonescu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="title-container">
+            <img src="armenoi.png" class="arma-stanga" alt="">
+            <h1>Romania in World War II</h1>
+            <img src="armenoi.png" class="arma-dreapta" alt="">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="base_en.html"><i class="fa-solid fa-house"></i></a></li>
+                <li><a href="pierderi_en.html">Territorial Losses</a></li>
+                <li><a href="antonescu_en.html" class="active">Ion Antonescu</a></li>
+                <li><a href="frontul-est_en.html">Eastern Front</a></li>
+                <li><a href="mihai_en.html">King Michael I</a></li>
+                <li><a href="quiz_en.html">Quiz</a></li>
+
+                <li class="language-selector">
+                    <button class="lang-btn" id="lang-btn">
+                        <img src="steag_en.png" alt="EN" class="flag-icon"> EN <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <ul class="lang-dropdown" id="lang-dropdown">
+                        <li><a href="antonescu.html"><img src="steag_ro.png" alt="RO" class="flag-icon"> Română</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="antonescu-section">
+            <h2>Ion Antonescu</h2>
+
+            <div class="content-wrapper">
+                <div class="main-text">
+                    <p class="reveal-on-scroll">In the tragic autumn of 1940, when Romania was brought to its knees by immense territorial losses, a figure returned to the stage of history who would definitively mark the country's fate: General <strong>Ion Antonescu</strong>. Vested with full powers and assuming the title of "Conducător" (Leader of the State), Antonescu took the reins of an isolated country at a time when Romania's survival depended on a radical choice.</p>
+
+                    <h3>The Order to Cross the Prut River</h3>
+                    <p class="reveal-on-scroll">The defining moment of his regime came at the dawn of June 22, 1941. Through a now-famous order: <em>"Soldiers, I order you: Cross the Prut!"</em>, Antonescu committed Romania to World War II alongside the Axis Powers. For the majority of Romanians at the time, this was not just a political alignment, but a "Holy War" for the liberation of their brethren in Bessarabia and Northern Bukovina, territories forcibly seized by the Soviet Union the previous year.</p>
+
+                    <h3>Beyond the Dniester</h3>
+                    <p class="reveal-on-scroll">After the swift recovery of the lost territories, Antonescu made the strategic decision to continue the advance alongside the German army beyond the Dniester River. His motivation was pragmatic yet risky: he wanted to demonstrate loyalty to Adolf Hitler to later secure his support in recovering Northern Transylvania. This phase of the war led the Romanian army into bloody battles, such as the Siege of Odessa and the catastrophe at Stalingrad, where thousands of Romanian soldiers met their end far from home.</p>
+
+                    <h3>The End of the Regime</h3>
+                    <p class="reveal-on-scroll">As the tide of the war turned against the Axis, Antonescu realized the imminence of a national disaster. Although he permitted discreet diplomatic contacts aimed at an armistice in Stockholm or Cairo, the Marshal refused to accept an unconditional surrender which, in his view, would have left the country at the mercy of the Soviet occupier.</p>
+
+                    <p class="reveal-on-scroll">This rigidity led to the outcome of <strong>August 23, 1944</strong>. In a desperate attempt to save the rest of the country from destruction, King Michael I dismissed and arrested Ion Antonescu, switching Romania to the Allied side. The General who had gone to war with the dream of national reunification would later be tried by a People's Tribunal and executed in 1946.</p>
+                </div>
+
+                <aside class="infobox">
+                    <img src="poza_antonescu.jpg" alt="Portrait of Ion Antonescu" class="profile-img">
+
+                    <h4>Ion Antonescu</h4>
+
+                    <ul class="profile-data">
+                        <li><strong>Born:</strong> June 15, 1882, Pitești</li>
+                        <li><strong>Died:</strong> June 1, 1946, Jilava</li>
+                        <li><strong>Military rank:</strong> Marshal of Romania</li>
+                        <li><strong>Position:</strong> Prime Minister (Leader of the State)</li>
+                        <li><strong>Rule period:</strong> 1940 – 1944</li>
+                    </ul>
+                </aside>
+            </div>
+
+            <div class="audio-container">
+                <h4 class="audio-title">🔊 Marshal Ion Antonescu - Speech to the Legionnaires, October 6, 1940</h4>
+                <p class="audio-desc">"In the spirit of the Captain and of the nation, before the King and the General, we pledge through our supreme sacrifice to make together a people and a country like the holy sun in the sky!" (Click the radio to listen)</p>
+
+                <img src="poza_radio.png" id="radio-btn" class="radio-image" title="Click to listen">
+
+                <audio id="audio-antonescu">
+                    <source src="discurs_antonescu.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+        </section>
+    </main>
+<script src="script.js"></script>
+</body>
+</html>

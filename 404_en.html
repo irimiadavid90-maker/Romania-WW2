@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 – Page not found</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        .error-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 160px);
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .error-code {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 8rem;
+            color: #c1a04b;
+            line-height: 1;
+            margin-bottom: 10px;
+            opacity: 0.15;
+            user-select: none;
+            font-weight: bold;
+        }
+        .error-title {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 2rem;
+            color: #c1a04b;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .error-desc {
+            color: #9d9d9d;
+            font-size: 1.05rem;
+            max-width: 480px;
+            margin: 0 auto 35px;
+            line-height: 1.6;
+            text-align: center !important;
+        }
+        .error-divider {
+            width: 60px;
+            height: 2px;
+            background: #c1a04b;
+            margin: 20px auto 30px;
+        }
+        .btn-acasa {
+            padding: 14px 40px;
+            background: transparent;
+            border: 1px solid #c1a04b;
+            color: #c1a04b;
+            font-family: 'imagine', serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-acasa:hover {
+            background: #c1a04b;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="title-container">
+            <img src="armenoi.png" class="arma-stanga" alt="">
+            <h1>Romania in World War II</h1>
+            <img src="armenoi.png" class="arma-dreapta" alt="">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="base_en.html"><i class="fa-solid fa-house"></i></a></li>
+                <li><a href="pierderi_en.html">Territorial Losses</a></li>
+                <li><a href="antonescu_en.html">Ion Antonescu</a></li>
+                <li><a href="frontul-est_en.html">Eastern Front</a></li>
+                <li><a href="mihai_en.html">King Michael I</a></li>
+                <li><a href="quiz_en.html">Quiz</a></li>
+                <li class="language-selector">
+                    <button class="lang-btn" id="lang-btn">
+                        <img src="steag_en.png" alt="EN" class="flag-icon"> EN <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <ul class="lang-dropdown" id="lang-dropdown">
+                        <li><a href="404.html"><img src="steag_ro.png" alt="RO" class="flag-icon"> Română</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="error-section">
+            <div class="error-code">404</div>
+            <h2 class="error-title">Page not found</h2>
+            <div class="error-divider"></div>
+            <p class="error-desc">
+                The page you're looking for does not exist. Return to the main page to continue.
+            </p>
+            <a href="base_en.html" class="btn-acasa">
+                <i class="fa-solid fa-house" style="margin-right: 8px;"></i>Back home
+            </a>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
